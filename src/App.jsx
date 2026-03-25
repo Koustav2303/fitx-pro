@@ -1,6 +1,5 @@
 import React, { useEffect } from 'react';
-import { BrowserRouter as Router, Routes, Route, useLocation } from 'react-router-dom';
-
+import { HashRouter as Router, Routes, Route, useLocation } from 'react-router-dom';
 // Global Components
 import CustomCursor from './components/CustomCursor';
 import Navbar from './components/Navbar';
