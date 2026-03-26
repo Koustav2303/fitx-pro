@@ -98,13 +98,13 @@ export default function Home() {
       gsap.to('.marquee-track-1', { xPercent: -50, ease: "none", duration: 15, repeat: -1 });
       gsap.to('.marquee-track-2', { xPercent: 50, ease: "none", duration: 15, repeat: -1 });
 
-      // 3. STORY TEXT ILLUMINATION (Words light up as you scroll)
+      // 3. STORY TEXT ILLUMINATION
       const words = storyTextRef.current.querySelectorAll('.story-word');
       gsap.fromTo(words, 
         { opacity: 0.15, color: "#fff" },
         { 
           opacity: 1, 
-          color: "#39FF14", // Lights up neon green
+          color: "#39FF14", 
           stagger: 0.1, 
           scrollTrigger: {
             trigger: '.story-section',
@@ -119,7 +119,6 @@ export default function Home() {
       const transTl = gsap.timeline({
         scrollTrigger: { trigger: '.transform-section', start: "top top", end: "+=150%", pin: true, scrub: 1 }
       });
-      // Start as a tiny circle in the center, expand to 150% to cover corners
       transTl.fromTo('.after-image-wrapper', 
         { clipPath: "circle(5% at 50% 50%)" }, 
         { clipPath: "circle(150% at 50% 50%)", ease: "power2.inOut" }
@@ -161,7 +160,7 @@ export default function Home() {
         pin: true,
         animation: hTween,
         scrub: 1,
-        invalidateOnRefresh: true, // Recalculates on mobile rotation/resize
+        invalidateOnRefresh: true,
       });
 
       // 7. PROGRAMS 3D STAGGER ENTRANCE
@@ -172,7 +171,7 @@ export default function Home() {
     };
   }, { scope: mainRef });
 
-  // --- 3D TILT LOGIC (Zero Latency QuickTo) ---
+  // --- 3D TILT LOGIC ---
   const handleCardMouseMove = (e, index) => {
     const card = document.querySelectorAll('.program-card-wrapper')[index];
     if (!card) return;
@@ -184,13 +183,11 @@ export default function Home() {
     const centerX = rect.width / 2;
     const centerY = rect.height / 2;
     
-    // Calculate rotation (-10 to 10 degrees)
     const rotateX = ((y - centerY) / centerY) * -10;
     const rotateY = ((x - centerX) / centerX) * 10;
 
     gsap.to(card, { rotateX, rotateY, scale: 1.02, transformPerspective: 1500, duration: 0.4, ease: "power2.out" });
 
-    // Inner Image Parallax (moves opposite to tilt)
     const img = card.querySelector('.card-parallax-img');
     if (img) gsap.to(img, { x: (x - centerX) * -0.05, y: (y - centerY) * -0.05, scale: 1.1, duration: 0.4, ease: "power2.out" });
   };
@@ -243,12 +240,6 @@ export default function Home() {
             </MagneticButton>
           </div>
         </div>
-
-        {/* Scroll Indicator */}
-        <div className="absolute bottom-10 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2 opacity-50 z-30 animate-pulse">
-          <span className="text-[10px] font-bold uppercase tracking-widest rotate-90 mb-6">Scroll</span>
-          <div className="w-px h-16 bg-gradient-to-b from-white to-transparent" />
-        </div>
       </section>
 
       {/* --- 2. SKEWED DUAL MARQUEE --- */}
@@ -271,7 +262,6 @@ export default function Home() {
 
       {/* --- 3. DYNAMIC STORY ILLUMINATION --- */}
       <section className="story-section min-h-[80vh] flex items-center justify-center py-40 px-6 relative z-10 bg-darkBg overflow-hidden">
-        {/* Abstract Background Blurs */}
         <div className="absolute top-0 left-0 w-full h-full bg-[radial-gradient(circle_at_50%_50%,rgba(57,255,20,0.05)_0%,transparent_50%)] pointer-events-none" />
         
         <div className="max-w-6xl text-center relative z-10">
@@ -287,8 +277,6 @@ export default function Home() {
 
       {/* --- 4. CINEMATIC CIRCULAR CLIP-PATH TRANSFORMATION --- */}
       <section className="transform-section relative h-screen w-full bg-darkSurface overflow-hidden">
-        
-        {/* BEFORE IMAGE (Base Layer) */}
         <div className="absolute inset-0 w-full h-full">
           <img src="https://images.unsplash.com/photo-1620188467120-5042ed1eb5da?q=80&w=2070&auto=format&fit=crop" alt="Before" className="w-full h-full object-cover grayscale opacity-30" />
           <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 text-center z-10">
@@ -296,7 +284,6 @@ export default function Home() {
           </div>
         </div>
 
-        {/* AFTER IMAGE (Revealed via GSAP Circle) */}
         <div className="after-image-wrapper absolute inset-0 w-full h-full z-20">
           <img src="https://images.unsplash.com/photo-1581009146145-b5ef050c2e1e?q=80&w=2070&auto=format&fit=crop" alt="After" className="w-full h-full object-cover" />
           <div className="absolute inset-0 bg-gradient-to-t from-black via-black/40 to-transparent flex items-end justify-center pb-20 md:pb-32 px-6">
@@ -340,7 +327,6 @@ export default function Home() {
           </h2>
         </div>
         
-        {/* Container width dynamic based on children */}
         <div ref={horizontalContainerRef} className="flex gap-8 md:gap-16 px-6 md:px-16 w-max h-[60vh] items-center mt-20">
           {[
             { title: "Iron Sanctuary", desc: "Olympic lifting platforms and calibrated plates.", img: "1534438327276-14e5300c3a48" },
@@ -397,7 +383,6 @@ export default function Home() {
               onMouseLeave={() => handleCardMouseLeave(i)}
               style={{ transformStyle: "preserve-3d" }}
             >
-              {/* Internal overflow handler for parallax img */}
               <div className="absolute inset-0 overflow-hidden rounded-[2rem] z-0">
                 <img 
                   src={`https://images.unsplash.com/photo-${prog.img}?q=80&w=800&auto=format&fit=crop`} 
@@ -430,7 +415,6 @@ export default function Home() {
         <div className="max-w-5xl mx-auto px-6 relative z-10 text-center">
           <Quote size={60} className="text-neonGreen/20 mx-auto mb-12 rotate-180" />
           
-          {/* Heavily Styled Bootstrap Carousel */}
           <Carousel fade indicators={false} controls={false} interval={4000} pause={false} className="fitx-custom-carousel">
             {[
               { text: "FITX PRO completely rewired my approach to fitness. The trainers don't just guide you; they systematically dismantle your perceived limits.", author: "Sarah Jenkins", tag: "-40lbs / Elite Member" },

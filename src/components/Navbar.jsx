@@ -21,6 +21,7 @@ export default function Navbar() {
     { name: 'Programs', path: '/programs' },
     { name: 'Trainers', path: '/trainers' },
     { name: 'Membership', path: '/membership' },
+    { name: 'Shop', path: '/shop' }, // <-- THIS IS THE CRITICAL LINE
     { name: 'Contact', path: '/contact' },
   ];
 
